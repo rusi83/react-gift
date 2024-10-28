@@ -30,7 +30,6 @@ export const AddCategory = ( { onNewCategory } ) => {
     setInputValue('');
   }
 
-
   return (
     <form onSubmit={ (e) => onSubmit(e) }>
       <input
@@ -46,5 +45,6 @@ export const AddCategory = ( { onNewCategory } ) => {
 }
 
 AddCategory.propTypes = {
-  onNewCategory: PropTypes.func.isRequired
+  onNewCategory: PropTypes.func.isRequired,
+  onDeleteCategory: PropTypes.func.isRequired
 };

@@ -1,11 +1,7 @@
-const renderImages = (images) => {
-  return images.map(img => (
-    <li key={img.id}>{img.title}</li>
-  ));
-};
-
-export const GiftItem = (images) => {
+export const GiftItem = ( images ) => {
   return (
-    <div>{renderImages(images)}</div>
+    <div className="card">
+      <img src={images.url} alt={images.title} />
+    </div>
   )
 }

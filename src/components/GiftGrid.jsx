@@ -1,36 +1,48 @@
-import { useEffect, useState } from 'react';
 import propTypes from 'prop-types'
-import { getGift } from '../helpers';
 import { GiftItem } from './GiftItem';
+import { useFetchGifts } from '../hooks/useFetchGifts';
+import { LoadingComponent } from './LoadingComponent';
 
 
-export const GiftGrid = ({ category }) => {
-  const [Images, setImages] = useState([])
+export const GiftGrid = ({ category, onDeleteCategory }) => {
+  const { images, isLoading } = useFetchGifts( category )
 
-  const getImages = async (category) => {
-    const newImages = await getGift(category)
-    setImages(newImages)
+
+  const renderGiftItems = () => {
+    return images.map( img =>(
+      <GiftItem key={img.id} {...img} />
+    ))
   }
 
+  const buttonStyle = {
+    position: 'absolute',
+    right: '50px',
+    // top: '10px',
+  }
 
-/*  useEffect allows to execute a function when the component is rendered
-  useEffect only execute the function when the category change,
-  so others states changes don't trigger the function */
-  useEffect(() => {
-    getImages(category);
-  }, [category]);
-
+  const catToDelete = () => {
+    onDeleteCategory(category);
+  }
 
   return (
     <>
       <h3>{category}</h3>
-      <ol>
-        { GiftItem(Images) }
-      </ol>
+      <LoadingComponent isLoading={isLoading}/>
+      <div className="card-grid">
+        {renderGiftItems()}
+        <button
+          style={ buttonStyle }
+          onClick={catToDelete}
+        >
+          delete
+        </button>
+      </div>
     </>
   )
 }
 
+
 GiftGrid.propTypes = {
-  category: propTypes.string.isRequired
+  category: propTypes.string.isRequired,
+  onDeleteCategory: propTypes.func.isRequired
 }
