@@ -1,8 +1,7 @@
-//BtYXZ65qDFFT4GgGWLWBfEfTRGA3907J
-
 
 export const getGift = async ( category ) => {
-  const url = `https://api.giphy.com/v1/gifs/search?api_key=BtYXZ65qDFFT4GgGWLWBfEfTRGA3907J&q=${category}&limit=5`;
+  const apiKey = import.meta.env.VITE_API_KEY_GIPHY;
+  const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${category}&limit=5`;
   // Función para simular el retraso
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
   // Simular un retraso de 1 segundo
